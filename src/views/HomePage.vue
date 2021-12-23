@@ -13,14 +13,16 @@
   </div>
 </template>
 
-<script>
-import axios from "axios";
+<script lang="ts">
+import { defineComponent } from 'vue'
+import axios, { AxiosResponse } from "axios";
 import MovieList from "@/components/MovieList.vue";
 import MoviePreview from "@/components/MoviePreview.vue";
 
 import { BASE_IMAGE_URL } from "../constants";
+import { MovieData } from '../types'
 
-export default {
+export default defineComponent({
   name: "Home Page",
   components: {
     MovieList,
@@ -38,20 +40,20 @@ export default {
       .get(
         "https://api.themoviedb.org/3/discover/movie?api_key=58817b1d581d4e9595c92a28c167872f&language=en-US&sort_by=popularity.desc"
       )
-      .then((response) => {
+      .then((response: AxiosResponse) => {
         this.data = response.data.results;
       });
   },
   methods: {
-    setSelectedMovieId(id) {
+    setSelectedMovieId(id: string) {
       this.selectedMovieId = id;
     },
   },
   watch: {
-    data(movieList) {
+    data(movieList: MovieData[]) {
       movieList.length > 0 && this.setSelectedMovieId(movieList[0].id);
     },
-    selectedMovieId(id) {
+    selectedMovieId(id: string) {
       const selectedMovie = this.data.find((movie) => movie.id === id);
       const { poster_path, title, overview } = selectedMovie;
       this.preview = {
@@ -61,7 +63,7 @@ export default {
       };
     },
   },
-};
+});
 </script>
 
 <style >

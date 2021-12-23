@@ -8,15 +8,17 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang='ts'>
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: "MoviePreview",
   props: {
     image: String,
     title: String,
     description: String,
   },
-};
+});
 </script>
 
 <style>

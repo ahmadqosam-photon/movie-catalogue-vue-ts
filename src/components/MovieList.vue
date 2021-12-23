@@ -17,19 +17,22 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang='ts'>
+import { defineComponent } from 'vue'
+import { MovieData } from '../types'
+
+export default defineComponent({
   name: "MovieList",
   props: {
     movieList: Array,
     id: Number,
   },
   methods: {
-    onMovieSelected: function (data) {
+    onMovieSelected: function (data: MovieData) {
       this.$emit("set-selected-movie-id", data.id);
     },
   },
-};
+});
 </script>
 
 <style>
